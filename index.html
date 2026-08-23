@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#10253F" />
+    <title>金星商会 | 在庫管理</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;600;700&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="#"><span class="brand-mark">K</span><span><b>KINSEI</b><small>STOCK CONTROL</small></span></a>
+        <nav aria-label="メインナビゲーション">
+          <button class="nav-item active" data-view="dashboard"><i>▦</i>ダッシュボード</button>
+          <button class="nav-item" data-view="inventory"><i>□</i>在庫・倉庫</button>
+          <button class="nav-item" data-view="orders"><i>↗</i>入荷・出荷</button>
+          <button class="nav-item" data-view="history"><i>≡</i>入出庫履歴</button>
+        </nav>
+        <div class="sidebar-bottom"><span class="presence"></span><span>名古屋本社</span><small>管理者</small></div>
+      </aside>
+
+      <main>
+        <header class="topbar">
+          <button class="menu-button" aria-label="メニューを開く">☰</button>
+          <button class="location location-button" id="locationButton"><span class="pin">●</span> <span id="currentLocation">名古屋本社</span> <span class="chevron">⌄</span></button>
+          <div class="top-actions"><button class="icon-button" id="notificationButton" aria-label="通知">🔔<span class="notification"></span></button><button class="avatar" id="profileButton" aria-label="アカウントメニュー">KM</button></div>
+          <div class="top-menu location-menu hidden" id="locationMenu"><button data-location="名古屋本社">名古屋本社</button><button data-location="豊橋営業所">豊橋営業所</button></div>
+          <div class="top-menu notification-menu hidden" id="notificationMenu"><p class="menu-heading">通知</p><button data-view="orders"><b>出荷予定 2件</b><small>本日のピッキング対象があります</small></button><button data-view="inventory"><b>在庫不足 4品目</b><small>発注点を下回っています</small></button></div>
+          <div class="top-menu profile-menu hidden" id="profileMenu"><p class="menu-heading">金星商会　管理者</p><button id="profileSettings">アカウント設定</button><button id="helpButton">操作ガイド</button></div>
+        </header>
+
+        <section class="page dashboard-view" data-panel="dashboard">
+          <div class="page-heading"><div><p class="eyebrow">OVERVIEW / 2026.08.18 TUE</p><h1>今日の在庫状況</h1><p class="subhead">管理が必要な在庫を優先して確認できます。</p></div><button class="primary-button" id="newTransaction">＋ 入出庫を登録</button></div>
+          <div class="metric-grid">
+            <article class="metric-card inventory"><p>在庫品目</p><strong id="itemCount">6<span>品目</span></strong><small>登録されている全品目</small></article>
+            <article class="metric-card warning"><p>発注が必要</p><strong id="reorderCount">4<span>品目</span></strong><small><b id="urgentCount">2品目</b> が優先対応</small></article>
+            <article class="metric-card value"><p>在庫金額</p><strong id="inventoryValue">¥1,119,000</strong><small>在庫評価額（デモ）</small></article>
+            <article class="metric-card incoming"><p>本日の入出庫</p><strong id="todayTransactionCount">0<span>件</span></strong><small>このブラウザでの登録数</small></article>
+          </div>
+
+          <div class="dashboard-grid">
+            <article class="panel stock-flow"><div class="panel-title"><div><p class="eyebrow">INVENTORY MOVEMENT</p><h2>在庫推移 <small id="chartRangeLabel">過去30日</small></h2></div><div class="range-tabs"><button class="selected" data-range="30日">30日</button><button data-range="3ヶ月">3ヶ月</button><button data-range="1年">1年</button></div></div><div class="chart-legend"><span><i class="legend-dot blue"></i>在庫金額</span><span><i class="legend-dot slate"></i>適正在庫</span></div><div class="chart-wrap"><div class="y-axis"><span>¥32M</span><span>¥28M</span><span>¥24M</span><span>¥20M</span></div><svg viewBox="0 0 680 232" preserveAspectRatio="none" aria-label="在庫金額推移グラフ" role="img"><defs><linearGradient id="fill" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#2F80ED" stop-opacity=".24"/><stop offset="100%" stop-color="#2F80ED" stop-opacity="0"/></linearGradient></defs><path class="grid" d="M0 18H680M0 82H680M0 146H680M0 210H680"/><path class="target" d="M0 111H680"/><path class="area" d="M0 92 C55 88 62 105 112 90 S177 48 226 76 S282 113 338 96 S395 46 452 61 S512 114 566 90 S630 54 680 69 V232 H0Z"/><path class="line" d="M0 92 C55 88 62 105 112 90 S177 48 226 76 S282 113 338 96 S395 46 452 61 S512 114 566 90 S630 54 680 69"/><circle cx="680" cy="69" r="5"/></svg><div class="x-axis"><span>7/20</span><span>7/27</span><span>8/03</span><span>8/10</span><span>8/17</span></div></div></article>
+            <article class="panel action-panel"><div class="panel-title"><div><p class="eyebrow">ACTION REQUIRED</p><h2>優先アクション</h2></div><button class="text-button" data-view="orders">すべて見る →</button></div><div class="action-list" id="actionList"></div></article>
+          </div>
+
+          <article class="panel recent-panel"><div class="panel-title"><div><p class="eyebrow">RECENT ACTIVITY</p><h2>最近の入出庫</h2></div><button class="text-button" data-view="history">履歴を開く →</button></div><div class="table-wrap"><table><thead><tr><th>日時</th><th>品目</th><th>区分</th><th>数量</th><th>担当者</th><th>倉庫</th></tr></thead><tbody id="recentRows"></tbody></table></div></article>
+        </section>
+
+        <section class="page list-view hidden" data-panel="inventory"><div class="page-heading"><div><p class="eyebrow">INVENTORY / WAREHOUSE</p><h1>在庫・倉庫</h1><p class="subhead">倉庫別の在庫を確認し、必要に応じて在庫を移動します。</p></div><button class="primary-button" id="resetData">デモデータに戻す</button></div><div class="warehouse-summary" id="warehouseSummary"></div><div class="panel transfer-panel"><div class="panel-title"><div><p class="eyebrow">WAREHOUSE TRANSFER</p><h2>倉庫間移動を登録</h2></div></div><form class="inline-form" id="transferForm"><select id="transferProduct"></select><select id="transferFrom"><option>名古屋</option><option>豊橋</option></select><span class="transfer-arrow">→</span><select id="transferTo"><option>豊橋</option><option>名古屋</option></select><input id="transferQuantity" type="number" min="1" value="1" required /><button class="primary-button">移動を登録</button></form></div><div class="panel inventory-list"><div class="filter-row"><label class="search"><span>⌕</span><input id="inventorySearch" type="search" placeholder="品目名、型番、棚番で検索" /></label><select class="filter-button" id="categoryFilter"><option value="">すべてのカテゴリ</option><option value="資材">資材</option><option value="肥料">肥料</option><option value="灌水">灌水</option></select><select class="filter-button" id="warehouseFilter"><option value="">すべての倉庫</option><option value="名古屋">名古屋</option><option value="豊橋">豊橋</option></select></div><div class="table-wrap"><table><thead><tr><th>品目</th><th>型番</th><th>名古屋</th><th>豊橋</th><th>合計</th><th>状態</th></tr></thead><tbody id="inventoryRows"></tbody></table></div></div></section>
+        <section class="page hidden" data-panel="orders"><div class="page-heading"><div><p class="eyebrow">RECEIVING / SHIPPING</p><h1>入荷・出荷</h1><p class="subhead">予定を確認し、伝票を登録すると在庫へ即時反映します。</p></div><button class="primary-button" id="newOrder">＋ 伝票を登録</button></div><div class="order-tabs"><button class="selected" data-order-filter="all">すべて</button><button data-order-filter="入荷予定">入荷予定</button><button data-order-filter="出荷予定">出荷予定</button><button data-order-filter="完了">完了</button></div><div class="panel"><div class="panel-title"><div><p class="eyebrow">TODAY'S PICKING</p><h2>本日のピッキング対象</h2></div><span class="picking-count" id="pickingCount">0件</span></div><div class="table-wrap"><table><thead><tr><th>予定日</th><th>伝票番号</th><th>区分</th><th>品目</th><th>数量</th><th>倉庫</th><th>状態</th></tr></thead><tbody id="orderRows"></tbody></table></div></div></section>
+        <section class="page hidden" data-panel="history"><div class="page-heading"><div><p class="eyebrow">TRANSACTION HISTORY</p><h1>入出庫・移動履歴</h1><p class="subhead">入荷・出荷・倉庫間移動を時系列で確認できます。</p></div></div><div class="panel"><div class="table-wrap"><table><thead><tr><th>日時</th><th>品目</th><th>区分</th><th>数量</th><th>担当者</th><th>倉庫</th></tr></thead><tbody id="historyRows"></tbody></table></div></div></section>
+      </main>
+    </div>
+    <div class="toast" id="toast" role="status"></div>
+    <div class="modal-backdrop hidden" id="orderModal"><form class="modal" id="orderForm"><button type="button" class="modal-close" id="orderModalClose">×</button><p class="eyebrow">RECEIVING / SHIPPING SLIP</p><h2>伝票を登録</h2><label>区分<select id="orderType"><option value="入荷予定">入荷予定</option><option value="出荷予定">出荷予定</option></select></label><label>品目<select id="orderProduct"></select></label><label>倉庫<select id="orderWarehouse"><option>名古屋</option><option>豊橋</option></select></label><label>数量<input id="orderQuantity" type="number" min="1" value="10" required /></label><label>予定日<input id="orderDate" type="date" required /></label><button class="primary-button" type="submit">伝票を登録</button></form></div>
+    <div class="modal-backdrop hidden" id="modal"><form class="modal" id="transactionForm"><button type="button" class="modal-close" id="modalClose">×</button><p class="eyebrow">NEW TRANSACTION</p><h2>入出庫を登録</h2><label>品目<select id="transactionProduct"></select></label><label>区分<div class="segmented"><button type="button" class="selected" data-type="入庫">入庫</button><button type="button" data-type="出庫">出庫</button></div></label><label>数量<input id="transactionQuantity" type="number" min="1" value="10" required /></label><button class="primary-button" type="submit">登録する</button></form></div>
+    <script src="./script.js"></script>
+  </body>
+</html>
