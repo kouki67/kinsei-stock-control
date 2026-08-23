@@ -50,6 +50,10 @@ render();
 document.querySelectorAll('[data-view]').forEach((button) => button.addEventListener('click', () => { const view = button.dataset.view; document.querySelectorAll('[data-panel]').forEach((panel) => panel.classList.toggle('hidden', panel.dataset.panel !== view)); document.querySelectorAll('.nav-item').forEach((item) => item.classList.toggle('active', item.dataset.view === view)); $('.sidebar').classList.remove('open'); }));
 ['inventorySearch', 'categoryFilter', 'warehouseFilter'].forEach((id) => $(`#${id}`).addEventListener(id === 'inventorySearch' ? 'input' : 'change', renderInventory));
 $('.menu-button').addEventListener('click', () => $('.sidebar').classList.toggle('open'));
+document.addEventListener('click', (event) => {
+  const sidebar = $('.sidebar');
+  if (sidebar.classList.contains('open') && !sidebar.contains(event.target) && !$('.menu-button').contains(event.target)) sidebar.classList.remove('open');
+});
 const closeTopMenus = () => document.querySelectorAll('.top-menu').forEach((menu) => menu.classList.add('hidden'));
 const toggleTopMenu = (id) => { const menu = $(`#${id}`); const willOpen = menu.classList.contains('hidden'); closeTopMenus(); menu.classList.toggle('hidden', !willOpen); };
 $('#notificationButton').addEventListener('click', (event) => { event.stopPropagation(); toggleTopMenu('notificationMenu'); });
